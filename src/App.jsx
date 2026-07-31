@@ -6,6 +6,7 @@ import { obtenerEstaciones } from "./services/openaqApi";
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import LocationsPage from "./pages/LocationsPage";
+import SummaryCardsPage from "./pages/SummaryCardsPage";
 
 function App() {
   const [estaciones, setEstaciones] = useState([]);
@@ -59,6 +60,17 @@ function App() {
                   cargando={cargando}
                   error={error}
                   cargarEstaciones={cargarEstaciones}
+                />
+              }
+            />
+
+            <Route
+              path="/summary"
+              element={
+                <SummaryCardsPage
+                  estaciones={estaciones}
+                  cargando={cargando}
+                  error={error}
                 />
               }
             />

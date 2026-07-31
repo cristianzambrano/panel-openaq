@@ -19,6 +19,10 @@ function Sidebar() {
         <NavLink className={({ isActive }) => (isActive ? "menu-item active" : "menu-item")} to="/locations">
           Estaciones
         </NavLink>
+
+        <NavLink className={({ isActive }) => (isActive ? "menu-item active" : "menu-item")} to="/summary">
+          Cards
+        </NavLink>
       </nav>
 
       <div className="sidebar-footer">

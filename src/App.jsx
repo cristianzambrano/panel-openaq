@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
-import StationsTable from "./components/StationsTable";
 import { obtenerEstaciones } from "./services/openaqApi";
 import "./App.css";
-import SummaryCards from "./components/SummaryCards";
+import Homepage from "./pages/Homepage";
+import LocationsPage from "./pages/LocationsPage";
 
 function App() {
   const [estaciones, setEstaciones] = useState([]);
@@ -38,45 +39,30 @@ function App() {
         <Header />
 
         <main className="content">
-           <SummaryCards estaciones={estaciones} />
-          <section className="section-heading">
-            <div>
-              <h2>Estaciones de monitoreo</h2>
-              <p>
-                Consulta de estaciones registradas en OpenAQ.
-              </p>
-            </div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Homepage
+                  estaciones={estaciones}
+                  cargando={cargando}
+                  error={error}
+                />
+              }
+            />
 
-            <button
-              className="refresh-button"
-              onClick={cargarEstaciones}
-              disabled={cargando}
-            >
-              {cargando ? "Cargando..." : "Actualizar datos"}
-            </button>
-          </section>
-
-          {cargando && (
-            <div className="message loading">
-              Consultando información de OpenAQ...
-            </div>
-          )}
-
-          {error && (
-            <div className="message error">
-              <strong>Error:</strong> {error}
-            </div>
-          )}
-
-          {!cargando && !error && estaciones.length === 0 && (
-            <div className="message empty">
-              No se encontraron estaciones.
-            </div>
-          )}
-
-          {!cargando && !error && estaciones.length > 0 && (
-            <StationsTable estaciones={estaciones} />
-          )}
+            <Route
+              path="/locations"
+              element={
+                <LocationsPage
+                  estaciones={estaciones}
+                  cargando={cargando}
+                  error={error}
+                  cargarEstaciones={cargarEstaciones}
+                />
+              }
+            />
+          </Routes>
         </main>
       </div>
     </div>
